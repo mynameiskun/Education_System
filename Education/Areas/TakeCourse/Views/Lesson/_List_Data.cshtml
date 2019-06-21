@@ -1,0 +1,51 @@
+﻿@model IList<NewLife.School.Enity.CsTable>
+@using NewLife;
+@using NewLife.Web;
+@using XCode;
+@using XCode.Configuration;
+@using System.Web.Mvc;
+@using System.Web.Mvc.Ajax;
+@using System.Web.Mvc.Html;
+@using System.Web.Routing;
+@{
+    var fact = ViewBag.Factory as IEntityOperate;
+    var page = ViewBag.Page as Pager;
+    var fields = ViewBag.Fields as IList<FieldItem>;
+    var enableSelect = this.EnableSelect();
+    //var provider = ManageProvider.Provider;
+}
+<table class="table table-bordered table-hover table-striped table-condensed">
+    <thead>
+        <tr>
+            @if (enableSelect)
+            {
+                <th class="text-center" style="width:10px;"><input type="checkbox" id="chkAll" title="全选" /></th>
+            }
+            <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("ID"))">编号</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Time"))">时间段</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("CourseName"))">课程名</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Techaer"))">教师</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("ClassRoom"))">教室</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Classm"))">班级</a></th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entity in Model)
+        {
+            <tr>
+                @if (enableSelect)
+                {
+                    <td class="text-center"><input type="checkbox" name="keys" value="@entity.ID" /></td>
+                }
+                <td class="text-center hidden-md hidden-sm hidden-xs">@entity.ID</td>
+                <td>@entity.Time</td>
+                <td>@entity.CourseName</td>
+                <td>@entity.Techaer</td>
+                <td>@entity.ClassRoom</td>
+                <td>@entity.Classm</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

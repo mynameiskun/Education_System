@@ -1,0 +1,68 @@
+﻿@model IList<NewLife.School.Enity.Course>
+@using NewLife;
+@using NewLife.Web;
+@using XCode;
+@using XCode.Configuration;
+@using System.Web.Mvc;
+@using System.Web.Mvc.Ajax;
+@using System.Web.Mvc.Html;
+@using System.Web.Routing;
+@{
+    var fact = ViewBag.Factory as IEntityOperate;
+    var page = ViewBag.Page as Pager;
+    var fields = ViewBag.Fields as IList<FieldItem>;
+    var enableSelect = this.EnableSelect();
+   
+    //var provider = ManageProvider.Provider;
+}
+<script >
+    function cli()
+    {
+        window.location.href = "/SelectCourse/TakeCourse";
+        }
+</script>
+<table class="table table-bordered table-hover table-striped table-condensed">
+    <thead>
+        <tr>
+            @if (enableSelect)
+            {
+                <th class="text-center" style="width:10px;"><input type="checkbox" id="chkAll" title="全选" /></th>
+            }
+            <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("ID"))">课程号</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Name"))">课程名称</a></th>
+            <th class="text-center" title="必修/选修"><a href="@Html.Raw(page.GetSortUrl("CourseType"))">必修_选修</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("DptID"))">系部</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("MajorID"))">专业</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("ClassID"))">班级</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("CourseTime"))">学时</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("TeacherID"))">开课教师ID</a></th>
+            
+           <th class="text-center" style="min-width:100px;">操作</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entity in Model)
+        {
+            <tr>
+                @if (enableSelect)
+                {
+                    <td class="text-center"><input type="checkbox" name="keys" value="@entity.ID" /></td>
+                }
+                <td class="text-center hidden-md hidden-sm hidden-xs">@entity.ID</td>
+                <td>@entity.Name</td>
+                <td class="text-center">@entity.CourseType</td>
+                <td><a href="Dpt?ID=@entity.DptID">@entity.DptName</a></td>
+                <td><a href="Major?ID=@entity.MajorID">@entity.MajorName</a></td>
+                <td><a href="Class?ID=@entity.ClassID">@entity.ClassName</a></td>
+                <td class="text-right">@entity.CourseTime.ToString("n0")</td>
+                <td><a href="Teacher?ID=@entity.TeacherID">@entity.TeacherName</a></td>
+               
+                    <td class="text-center">
+                        <button type="submit" class="btn btn-success btn-sm">选课</button>
+                    </td>
+               
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Tables Version="9.9.6806.43122" NameSpace="NewLife.School.Enity" ConnName="Membership" Output="Student" BaseClass="Entity">
+  <Table Name="Student" Description="学生" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="学号" />
+      <Column Name="Name" DataType="String" Master="True" Description="姓名" />
+      <Column Name="Sex" DataType="Int32" Description="性别" Type="XCode.Membership.SexKinds" />
+      <Column Name="ClassID" DataType="Int32" Description="班号" />
+      <Column Name="BornDate" DataType="DateTime" Description="出生日期" />
+      <Column Name="DptID" DataType="Int32" Description="系部" />
+      <Column Name="Phone" DataType="Int32" Description="联系方式" />
+      <Column Name="InDate" DataType="DateTime" Description="入学日期" />
+      <Column Name="MajorID" DataType="Int32" Description="专业" />
+      <Column Name="Feature" DataType="String" Description="政治面貌" Type="Education.Feature" />
+      <Column Name="RoleID" DataType="Int32" Description="角色" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Name" Unique="True" />
+    </Indexes>
+  </Table>
+  <Table Name="Class" Description="班级" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="班级编号" />
+      <Column Name="Name" DataType="String" Master="True" Description="班级名称" />
+      <Column Name="DptID" DataType="Int32" Description="系部" />
+      <Column Name="TeacherID" DataType="Int32" Description="教师" />
+      <Column Name="MajorID" DataType="Int32" Description="专业" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Name" />
+    </Indexes>
+  </Table>
+  <Table Name="Major" Description="专业" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="专业代码" />
+      <Column Name="Name" DataType="String" Master="True" Description="专业名称" />
+      <Column Name="DptID" DataType="Int32" Description="系部" />
+      <Column Name="Dptdescription" DataType="String" Description="专业介绍" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Name" />
+    </Indexes>
+  </Table>
+  <Table Name="Dpt" Description="系部" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="系部代码" />
+      <Column Name="Name" DataType="String" Master="True" Description="系部名称" />
+      <Column Name="Dptdescription" DataType="String" Description="系部介绍" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Name" />
+    </Indexes>
+  </Table>
+  <Table Name="Course" Description="课程计划表" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="课程号" />
+      <Column Name="Name" DataType="String" Master="True" Description="课程名称" />
+      <Column Name="CourseType" DataType="Int32" Description="必修/选修" Type="Education.CourseType" />
+      <Column Name="DptID" DataType="Int32" Description="系部" />
+      <Column Name="MajorID" DataType="Int32" Description="专业" />
+      <Column Name="ClassID" DataType="Int32" Description="班级" />
+      <Column Name="CourseTime" DataType="Int32" Description="学时" />
+      <Column Name="TeacherID" DataType="Int32" Description="开课教师ID" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Name" />
+    </Indexes>
+  </Table>
+  <Table Name="SelectCourse" Description="选课表" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="CourseID" DataType="String" Description="课程名称" />
+      <Column Name="StuID" DataType="Int32" Description="学号" />
+      <Column Name="DptID" DataType="Int32" Description="系部" />
+      <Column Name="MajorID" DataType="Int32" Description="专业" />
+      <Column Name="ClassID" DataType="Int32" Description="班级" />
+      <Column Name="CourseTime" DataType="Int32" Description="学时" />
+      <Column Name="TeacherID" DataType="Int32" Description="开课教师ID" />
+      <Column Name="IsTake" DataType="Int32" Description="是否已选" Type="Education.state" />
+    </Columns>
+  </Table>
+  <Table Name="Teacher" Description="教师" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="教师编号" />
+      <Column Name="Name" DataType="String" Master="True" Description="姓名" />
+      <Column Name="Sex" DataType="Int32" Description="性别" Type="XCode.Membership.SexKinds" />
+      <Column Name="BornDate" DataType="DateTime" Description="出生日期" />
+      <Column Name="Degree" DataType="Int32" Description="职称" Type="Education.Degree" />
+      <Column Name="Feature" DataType="Int32" Description="政治面貌" Type="Education.Feature" />
+      <Column Name="TeacherPhone" DataType="String" Description="联系方式" />
+      <Column Name="DptID" DataType="Int32" Description="系部" />
+      <Column Name="RoleID" DataType="Int32" Description="角色" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Name" />
+    </Indexes>
+  </Table>
+  <Table Name="ClassRoom" Description="教室" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="RoomName" DataType="String" Description="教室名称" />
+      <Column Name="StuNumber" DataType="Int32" Description="容纳人数" />
+    </Columns>
+  </Table>
+  <Table Name="CsTime" Description="排课时间" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="Name" DataType="String" Master="True" Description="时间段" />
+      <Column Name="Descrip" DataType="String" Master="True" Description="描述" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Name" />
+    </Indexes>
+  </Table>
+  <Table Name="CsTable" Description="课表" DbType="SqlServer">
+    <Columns>
+      <Column Name="ID" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="Time" DataType="String" Master="True" Description="时间段" />
+      <Column Name="CourseName" DataType="String" Description="课程名" />
+      <Column Name="Techaer" DataType="String" Description="教师" />
+      <Column Name="ClassRoom" DataType="String" Description="教室" />
+      <Column Name="Classm" DataType="String" Description="班级" />
+    </Columns>
+  </Table>
+</Tables>

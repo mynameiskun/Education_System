@@ -1,0 +1,62 @@
+﻿@model NewLife.School.Enity.Course
+@using NewLife;
+@using XCode;
+@using XCode.Configuration;
+@using NewLife.School.Enity
+@{
+    var entity = Model;
+    var fields = ViewBag.Fields as IList<FieldItem>;
+    var isNew = (entity as IEntity).IsNullKey;
+}
+<div class="form-group col-xs-12 col-sm-6 col-lg-4">
+    <label class="control-label col-xs-3 col-sm-3">课程名称</label>
+    <div class="input-group col-xs-9 col-sm-9">
+        <input class="form-control" id="Name" name="Name" type="text" value="@entity.Name" />
+    </div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-lg-4">
+    <label class="control-label col-xs-3 col-sm-3">必修_选修</label>
+    <div class="input-group col-xs-9 col-sm-4">
+        @Html.ForEnum("CourseType", @entity.CourseType)
+    </div>
+    <span class="hidden-xs col-sm-5"><span class="middle">必修/选修</span></span>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-lg-4">
+    <label class="control-label col-xs-3 col-sm-3">系部</label>
+    <div class="input-group col-xs-9 col-sm-9">
+        @Html.ForDropDownList("DptID", Course.Meta.AllFields.First(e=>e.Name=="DptName").Map.Provider.GetDataSource(), @entity.DptID)
+    </div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-lg-4">
+    <label class="control-label col-xs-3 col-sm-3">专业</label>
+    <div class="input-group col-xs-9 col-sm-9">
+        @Html.ForDropDownList("MajorID", Course.Meta.AllFields.First(e=>e.Name=="MajorName").Map.Provider.GetDataSource(), @entity.MajorID)
+    </div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-lg-4">
+    <label class="control-label col-xs-3 col-sm-3">班级</label>
+    <div class="input-group col-xs-9 col-sm-9">
+        @Html.ForDropDownList("ClassID", Course.Meta.AllFields.First(e=>e.Name=="ClassName").Map.Provider.GetDataSource(), @entity.ClassID)
+    </div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-lg-4">
+    <label class="control-label col-xs-3 col-sm-3">学时</label>
+    <div class="input-group col-xs-9 col-sm-9">
+        @Html.TextBox("CourseTime", @entity.CourseTime, new { @class = "form-control", role="number" })
+    </div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-lg-4">
+    <label class="control-label col-xs-3 col-sm-3">开课教师ID</label>
+    <div class="input-group col-xs-9 col-sm-9">
+        @Html.ForDropDownList("TeacherID", Course.Meta.AllFields.First(e=>e.Name=="TeacherName").Map.Provider.GetDataSource(), @entity.TeacherID)
+    </div>
+</div>
+@Html.Partial("_Form_Footer", entity)
+@if (this.Has(PermissionFlags.Insert, PermissionFlags.Update))
+{
+    <div class="clearfix form-actions col-sm-12 col-md-12">
+        <label class="control-label col-xs-4 col-sm-5 col-md-5"></label>
+        <button type="submit" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-@(isNew ? "plus" : "save")"></i><strong>@(isNew ? "新增" : "保存")</strong></button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="history.go(-1);"><i class="glyphicon glyphicon-remove"></i><strong>取消</strong></button>
+    </div>
+}
